@@ -21,7 +21,8 @@
     "chalk": "^2.4.1",
     "download": "^7.1.0",
     "execa": "^1.0.0",
-    "ora": "^3.0.0"
+    "ora": "^3.0.0",
+    "prompts": "2.2.1"
   },
   "devDependencies": {
     "auto-changelog": "^1.8.0",

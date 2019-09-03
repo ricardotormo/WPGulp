@@ -13,6 +13,7 @@ const download = require('download');
 const handleError = require('./handleError.js');
 const clearConsole = require('./clearConsole.js');
 const printNextSteps = require('./printNextSteps.js');
+const prompts = require('prompts');
 
 module.exports = () => {
 	// Init.
@@ -25,6 +26,14 @@ module.exports = () => {
 		'https://raw.githubusercontent.com/ricardotormo/WPGulp/master/src/wpgulp.config.js'
 	];
 
+	prompts({
+		type: 'number',
+		name: 'value',
+		message: 'How old are you?',
+		validate: value => value < 18 ? `Nightclub is 18+ only` : true
+	}).then((res) => {
+		console.log(res.message)
+	})
 	// Start.
 	console.log('\n'); // eslint-disable-line no-console
 	console.log(
