@@ -15,6 +15,9 @@ const clearConsole = require('./clearConsole.js');
 const printNextSteps = require('./printNextSteps.js');
 const prompts = require('prompts');
 const execDownload = (filesToDownload) => {
+
+	const spinner = ora({ text: '' });
+	spinner.start(`1. Creating WPGulp files inside → ${chalk.black.bgWhite(` ${theDir} `)}`);
 	// Download.
 	return Promise.all(filesToDownload.map(x => download(x, `${theCWD}`))).then(async () => {
 		spinner.succeed();
@@ -65,9 +68,6 @@ module.exports = () => {
 			chalk.dim(`\n In the directory: ${theCWD}\n`),
 			chalk.dim('This might take a couple of minutes.\n')
 		);
-
-		const spinner = ora({ text: '' });
-		spinner.start(`1. Creating WPGulp files inside → ${chalk.black.bgWhite(` ${theDir} `)}`);
 
 		if (response.value === "upgrade") {
 			execDownload([files.gulpFile, files.packageJSONFile])
