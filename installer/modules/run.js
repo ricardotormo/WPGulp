@@ -70,10 +70,10 @@ module.exports = () => {
 		spinner.start(`1. Creating WPGulp files inside → ${chalk.black.bgWhite(` ${theDir} `)}`);
 
 		if (response.value === "upgrade") {
-			execDownload(files.gulpFile, files.packageJSONFile)
+			execDownload([files.gulpFile, files.packageJSONFile])
 		}
 		else if (response.value === "install") {
-			execDownload(files.gulpFile, files.packageJSONFile, files.configFile)
+			execDownload([files.gulpFile, files.packageJSONFile, files.configFile])
 		}
 	})();
 };
