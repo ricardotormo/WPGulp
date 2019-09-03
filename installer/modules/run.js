@@ -16,8 +16,27 @@ const printNextSteps = require('./printNextSteps.js');
 const prompts = require('prompts');
 
 module.exports = () => {
+	(async () => {
+		const questions = [
+			{
+				type: 'select',
+				name: 'value',
+				message: 'What do you want to do?',
+				choices: [
+					{ title: 'Upgrade', value: 'upgrade' },
+					{ title: 'Install', value: 'install' },
+				],
+				initial: 1
+			}
+		];
+		const onSubmit = (prompt, response) => {
+			console.log(`Thanks I got ${response} from ${prompt}`);
+		}
+		const response = await prompts(questions, { onSubmit });
+		console.log(response)
+	})();
 	// Init.
-	clearConsole();
+	/*clearConsole();
 
 	// Files.
 	const filesToDownload = [
@@ -26,14 +45,6 @@ module.exports = () => {
 		'https://raw.githubusercontent.com/ricardotormo/WPGulp/master/src/wpgulp.config.js'
 	];
 
-	prompts({
-		type: 'number',
-		name: 'value',
-		message: 'How old are you?',
-		validate: value => value < 18 ? `Nightclub is 18+ only` : true
-	}).then((res) => {
-		console.log(res.message)
-	})
 	// Start.
 	console.log('\n'); // eslint-disable-line no-console
 	console.log(
@@ -58,5 +69,5 @@ module.exports = () => {
 
 		// Done.
 		printNextSteps();
-	});
+	});*/
 };
