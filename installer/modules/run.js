@@ -14,7 +14,6 @@ const handleError = require('./handleError.js');
 const clearConsole = require('./clearConsole.js');
 const printNextSteps = require('./printNextSteps.js');
 const prompts = require('prompts');
-const fs = require("fs");
 
 const execDownload = (filesToDownload) => {
 
