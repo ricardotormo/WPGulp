@@ -14,6 +14,8 @@ const handleError = require('./handleError.js');
 const clearConsole = require('./clearConsole.js');
 const printNextSteps = require('./printNextSteps.js');
 const prompts = require('prompts');
+const fs = require("fs");
+
 const execDownload = (filesToDownload) => {
 
 	const spinner = ora({ text: '' });
@@ -70,10 +72,24 @@ module.exports = () => {
 		);
 
 		if (response.value === "upgrade") {
-			execDownload([files.gulpFile, files.packageJSONFile])
+			const fExists = Object.values(files).every((f) => {
+				return fs.existsSync(`${theCWD}/${f.substr(f.lastIndexOf('/') + 1)}`)
+			});
+
+			// Only upgrade if all files exists due to a previous installation
+			if (fExists) {
+				execDownload([files.gulpFile, files.packageJSONFile])
+			}
 		}
 		else if (response.value === "install") {
-			execDownload([files.gulpFile, files.packageJSONFile, files.configFile])
+			const fExists = Object.values(files).some((f) => {
+				return fs.existsSync(`${theCWD}/${f.substr(f.lastIndexOf('/') + 1)}`)
+			});
+
+			// Don't override existing installation
+			if (!fExists) {
+				execDownload([files.gulpFile, files.packageJSONFile, files.configFile])
+			}
 		}
 	})();
 };
