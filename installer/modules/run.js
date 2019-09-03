@@ -20,17 +20,10 @@ module.exports = () => {
 
 	// Files.
 	const filesToDownload = [
-		'https://raw.githubusercontent.com/ahmadawais/WPGulp/master/src/.editorconfig',
-		'https://raw.githubusercontent.com/ahmadawais/WPGulp/master/src/.eslintignore',
-		'https://raw.githubusercontent.com/ahmadawais/WPGulp/master/src/.eslintrc.js',
-		'https://raw.githubusercontent.com/ahmadawais/WPGulp/master/src/.gitignore',
-		'https://raw.githubusercontent.com/ahmadawais/WPGulp/master/src/gulpfile.babel.js',
-		'https://raw.githubusercontent.com/ahmadawais/WPGulp/master/src/package.json',
-		'https://raw.githubusercontent.com/ahmadawais/WPGulp/master/src/wpgulp.config.js'
+		'https://raw.githubusercontent.com/ricardotormo/WPGulp/master/src/gulpfile.babel.js',
+		'https://raw.githubusercontent.com/ricardotormo/WPGulp/master/src/package.json',
+		'https://raw.githubusercontent.com/ricardotormo/WPGulp/master/src/wpgulp.config.js'
 	];
-
-	// Dotfiles (if any).
-	const dotFiles = ['.editorconfig', '.eslintignore', '.eslintrc.js', '.gitignore'];
 
 	// Start.
 	console.log('\n'); // eslint-disable-line no-console
@@ -46,7 +39,6 @@ module.exports = () => {
 
 	// Download.
 	Promise.all(filesToDownload.map(x => download(x, `${theCWD}`))).then(async () => {
-		dotFiles.map(x => fs.rename(`${theCWD}/${x.slice(1)}`, `${theCWD}/${x}`, err => handleError(err)));
 		spinner.succeed();
 
 		// The npm install.
