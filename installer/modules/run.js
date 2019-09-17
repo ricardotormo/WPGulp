@@ -85,8 +85,10 @@ module.exports = () => {
 			else {
 				Object.values(files).forEach(f => {
 					if(!fs.existsSync(`${theCWD}/${f.substr(f.lastIndexOf('/') + 1)}`)) {
-						chalk.red.bold(
-							`\n This file ${f} must exists in your folder if you want to upgrade\n`
+						console.log(
+							chalk.red.bold(
+								`\n This file ${f} must exists in your folder if you want to upgrade\n`
+							)
 						)
 					}
 				});
@@ -105,10 +107,12 @@ module.exports = () => {
 			else {
 				Object.values(files).forEach(f => {
 					if(fs.existsSync(`${theCWD}/${f.substr(f.lastIndexOf('/') + 1)}`)) {
-						chalk.red.bold(
+						console.log(
+							chalk.red.bold(
 							`\n Maybe you want upgrade? \n
 							Your folder contains this file ${f},\n
 							so we can't make a fresh install. \n`
+							)
 						)
 					}
 				});
