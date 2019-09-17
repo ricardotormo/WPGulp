@@ -74,10 +74,22 @@ module.exports = () => {
 			const fExists = Object.values(files).every((f) => {
 				return fs.existsSync(`${theCWD}/${f.substr(f.lastIndexOf('/') + 1)}`)
 			});
+			
 
 			// Only upgrade if all files exists due to a previous installation
 			if (fExists) {
 				execDownload([files.gulpFile, files.packageJSONFile])
+			}
+			
+			// If there are some missing files and the upgrade is not possible, inform user
+			else {
+				Object.values(files).forEach(f => {
+					if(!fs.existsSync(`${theCWD}/${f.substr(f.lastIndexOf('/') + 1)}`)) {
+						chalk.red.bold(
+							`\n This file ${f} must exists in your folder if you want to upgrade\n`
+						)
+					}
+				});
 			}
 		}
 		else if (response.value === "install") {
@@ -88,6 +100,18 @@ module.exports = () => {
 			// Don't override existing installation
 			if (!fExists) {
 				execDownload([files.gulpFile, files.packageJSONFile, files.configFile])
+			}
+			
+			else {
+				Object.values(files).forEach(f => {
+					if(fs.existsSync(`${theCWD}/${f.substr(f.lastIndexOf('/') + 1)}`)) {
+						chalk.red.bold(
+							`\n Maybe you want upgrade? \n
+							Your folder contains this file ${f},\n
+							so we can't make a fresh install. \n`
+						)
+					}
+				});
 			}
 		}
 	})();
