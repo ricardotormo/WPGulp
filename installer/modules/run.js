@@ -87,7 +87,7 @@ module.exports = () => {
 					if(!fs.existsSync(`${theCWD}/${f.substr(f.lastIndexOf('/') + 1)}`)) {
 						console.log(
 							chalk.red.bold(
-								`\n This file ${f} must exists in your folder if you want to upgrade\n`
+								`\n This file ${f.substr(f.lastIndexOf('/') + 1)} must exists in your folder if you want to upgrade\n`
 							)
 						)
 					}
@@ -109,9 +109,9 @@ module.exports = () => {
 					if(fs.existsSync(`${theCWD}/${f.substr(f.lastIndexOf('/') + 1)}`)) {
 						console.log(
 							chalk.red.bold(
-							`\n Maybe you want upgrade? \n
-							Your folder contains this file ${f},\n
-							so we can't make a fresh install. \n`
+							`\n Maybe you want upgrade?
+							Your folder contains this file ${f.substr(f.lastIndexOf('/') + 1)},\n
+							so we can't make a fresh install.`
 							)
 						)
 					}
