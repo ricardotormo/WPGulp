@@ -1,8 +1,7 @@
 /**
  * WPGulp Configuration File
  *
- * 1. Edit the variables as per your project requirements.
- * 2. In paths you can add <<glob or array of globs>>.
+ * Edit the variables as per your project requirements.
  *
  * @package WPGulp
  */
@@ -11,7 +10,7 @@ let config = {};
 
 config = {
 	// Project options.
-	projectURL: 'localhost/testing-timber', // Local project URL of your already running WordPress site. Could be something like wpgulp.local or localhost:3000 depending upon your local WordPress setup.
+	projectURL: 'LOCAL_PROJECT_URL', // Local project URL of your already running WordPress site. Could be something like wpgulp.local or localhost:3000 depending upon your local WordPress setup.
 	productURL: './', // Theme/Plugin URL. Leave it like it is, since our gulpfile.js lives in the root folder.
 	browserAutoOpen: true,
 	port: 8000,
@@ -25,11 +24,10 @@ config = {
 	precision: 10,
 
 	// Path to JS vendor folder.
-	jsVendorSRC: [
-		//'./node_modules/jquery/dist/jquery.js',
-		//'./node_modules/slick-carousel/slick/slick.js',
-		'./node_modules/vue/dist/vue.js'
-	],
+	// In this array you can place the src to your vendor.
+	// Example:
+	// 	jsVendorSRC:['./node_modules/vue/dist/vue.js', './node_modules/jquery/dist/jquery.js]
+	jsVendorSRC: [],
 	jsVendorDestination: './dist/js/vendor/', // Path to place the compiled JS vendors file.
 	jsVendorFile: 'vendor', // Compiled JS vendors file name. Default set to vendors i.e. vendors.js.
 
