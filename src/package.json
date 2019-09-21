@@ -17,7 +17,6 @@
     "eslint": "^5.5.0",
     "eslint-config-wordpress": "^2.0.0",
     "file-exists": "^5.0.1",
-    "files-exist": "^1.1.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-babel": "^8.0.0",
