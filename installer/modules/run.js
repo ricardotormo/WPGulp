@@ -37,10 +37,10 @@ const execDownload = (filesToDownload) => {
 module.exports = () => {
 	(async () => {
 		const files = {
-			gulpFile: "https://raw.githubusercontent.com/ricardotormo/WPGulp/master/src/gulpfile.babel.js",
-			configFile: "https://raw.githubusercontent.com/ricardotormo/WPGulp/master/src/wpgulp.config.js",
-			optsFile: "https://raw.githubusercontent.com/ricardotormo/WPGulp/master/src/wpgulp.opts.js",
-			packageJSONFile: "https://raw.githubusercontent.com/ricardotormo/WPGulp/master/src/package.json"
+			gulpFile: "https://raw.githubusercontent.com/ricardotormo/WPGulp/v2/src/gulpfile.babel.js",
+			configFile: "https://raw.githubusercontent.com/ricardotormo/WPGulp/v2/src/wpgulp.config.js",
+			optsFile: "https://raw.githubusercontent.com/ricardotormo/WPGulp/v2/src/wpgulp.opts.js",
+			packageJSONFile: "https://raw.githubusercontent.com/ricardotormo/WPGulp/v2/src/package.json"
 		};
 		const questions = [
 			{
