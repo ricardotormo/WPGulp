@@ -65,6 +65,7 @@ const plumber = require('gulp-plumber'); // Prevent pipe breaking caused by erro
 const beep = require('beepbeep');
 const mkdirp = require('mkdirp');
 const fileExists = require("file-exists");
+const filesExist = require("files-exist");
 var glob = require("glob")
 
 /**
@@ -395,47 +396,47 @@ gulp.task('cleanDistVendor', function (done) {
  *     4. Uglifes/Minifies the JS file and generates custom.min.js
  */
 gulp.task("customJS", (done) => {
-	getFilesFromPath(config.jsCustomSRC).then((files) => {
-		// If no custom files don't do anything and inform the user about it
+	const config = requireUncached('./wpgulp.config.js');
 
-		if (!(isArray(files) && arrayHasEls(files))) {
-			console.log('\n\n❌  ===> NO EXISTING CUSTOM IN CUSTOM ARRAY \n')
-			done();
-			return;
-		}
-		gulp
-			.src(files, { allowEmpty: true })
-			.pipe(sourcemaps.init())
-			.pipe(plumber(errorHandler))
-			.pipe(
-				babel({
-					presets: [
-						[
-							'@babel/preset-env', // Preset to compile your modern JS to ES5.
-							{
-								targets: { browsers: config.BROWSERS_LIST } // Target browser list to support.
-							}
-						]
-					]
-				})
-			)
-			.pipe(selfExecute())
-			.pipe(concat(config.jsCustomFile + '.js'))
-			.pipe(sourcemaps.write())
-			.pipe(lineec()) // Consistent Line Endings for non UNIX systems.
-			.pipe(gulp.dest(config.jsCustomDestination))
-			.pipe(
-				rename({
-					basename: config.jsCustomFile,
-					suffix: '.min'
-				})
-			)
-			.pipe(uglify())
-			.pipe(lineec()) // Consistent Line Endings for non UNIX systems.
-			.pipe(gulp.dest(config.jsCustomDestination))
-			.pipe(notify({ message: '\n\n✅  ===> CUSTOM JS — completed!\n', onLast: true }));
+	// If no vendor don't do anything and inform the user about it
+	if (!(isArray(config.jsCustomSRC) && arrayHasEls(config.jsCustomSRC))) {
+		console.log('\n\n❌  ===> NO EXISTING CUSTOM IN CUSTOM ARRAY, NO CUSTOM GENERATION \n')
 		done();
-	})
+		return;
+	}
+
+	gulp
+		.src(filesExist(config.jsCustomSRC))
+		.pipe(sourcemaps.init())
+		.pipe(plumber(errorHandler))
+		.pipe(
+			babel({
+				presets: [
+					[
+						'@babel/preset-env', // Preset to compile your modern JS to ES5.
+						{
+							targets: { browsers: config.BROWSERS_LIST } // Target browser list to support.
+						}
+					]
+				],
+			})
+		)
+		.pipe(selfExecute())
+		.pipe(concat(config.jsCustomFile + '.js'))
+		.pipe(sourcemaps.write())
+		.pipe(lineec()) // Consistent Line Endings for non UNIX systems.
+		.pipe(gulp.dest(config.jsCustomDestination))
+		.pipe(
+			rename({
+				basename: config.jsCustomFile,
+				suffix: '.min'
+			})
+		)
+		.pipe(uglify())
+		.pipe(lineec()) // Consistent Line Endings for non UNIX systems.
+		.pipe(gulp.dest(config.jsCustomDestination))
+		.pipe(notify({ message: '\n\n✅  ===> CUSTOM JS — completed!\n', onLast: true }));
+	done();
 })
 
 /**
@@ -523,5 +524,4 @@ gulp.task(
 		gulp.watch([config.watchJsCustom, config.watchConfigFile], gulp.series('cleanDistCustom', 'customJS', reload)); // Reload on customJS file changes.
 		gulp.watch(config.imgSRC, gulp.series('images', reload)); // Reload on customJS file changes.
 	})
-
 );

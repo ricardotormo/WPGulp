@@ -6,15 +6,16 @@
  * @package WPGulp
  */
 
-let config = {};
+const opts = require('./wpgulp.opts.js');
 
-config = {
+const config = {
+
 	// Project options.
-	projectURL: 'LOCAL_PROJECT_URL', // Local project URL of your already running WordPress site. Could be something like wpgulp.local or localhost:3000 depending upon your local WordPress setup.
-	productURL: './', // Theme/Plugin URL. Leave it like it is, since our gulpfile.js lives in the root folder.
-	browserAutoOpen: true,
-	port: 8000,
-	injectChanges: true,
+	projectURL: opts.projectURL, // Local project URL of your already running WordPress site. Could be something like wpgulp.local or localhost:3000 depending upon your local WordPress setup.
+	productURL: opts.productURL, // Theme/Plugin URL. Leave it like it is, since our gulpfile.js lives in the root folder.
+	browserAutoOpen: opts.browserAutoOpen,
+	port: opts.port,
+	injectChanges: opts.injectChanges,
 
 	// Style options.
 	styleSRC: './assets/scss/style.scss', // Path to main .scss file.
@@ -32,7 +33,9 @@ config = {
 	jsVendorFile: 'vendor', // Compiled JS vendors file name. Default set to vendors i.e. vendors.js.
 
 	// JS Custom options.
-	jsCustomSRC: './assets/js/custom/**/*.js', // Path to JS custom scripts folder.
+	// Example: 
+	// 	jsCustomSRC:['./assets/js/custom/myJs.js', './assets/js/custom/index.js']
+	jsCustomSRC: [], // Path to JS custom scripts folder.
 	jsCustomDestination: './dist/js/custom/', // Path to place the compiled JS custom scripts file.
 	jsCustomFile: 'custom', // Compiled JS custom file name. Default set to custom i.e. custom.js.
 
